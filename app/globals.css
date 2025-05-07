@@ -5,11 +5,27 @@
   --foreground: #171717;
 }
 
+@font-face {
+  font-family: "Line Seed Sans TH";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/fonts/LINE_Seed_Sans_TH/LINE_Seed_Sans_TH_V1.003/Web/WOFF2/LINESeedSansTH_W_Rg.woff2") format("woff2"),
+    url("/fonts/LINE_Seed_Sans_TH/LINE_Seed_Sans_TH_V1.003/Web/WOFF/LINESeedSansTH_W_Rg.woff") format("woff"),
+    url("/fonts/LINE_Seed_Sans_TH/LINE_Seed_Sans_TH_V1.003/Web/EOT/LINESeedSansTH_W_Rg.eot") format("embedded-opentype");
+}
+
+@font-face {
+  font-family: "Line Seed Sans TH";
+  font-style: normal;
+  font-weight: 700;
+  src: url("/fonts/LINE_Seed_Sans_TH/LINE_Seed_Sans_TH_V1.003/Web/WOFF2/LINESeedSansTH_W_Bd.woff2") format("woff2"),
+    url("/fonts/LINE_Seed_Sans_TH/LINE_Seed_Sans_TH_V1.003/Web/WOFF/LINESeedSansTH_W_Bd.woff") format("woff"),
+    url("/fonts/LINE_Seed_Sans_TH/LINE_Seed_Sans_TH_V1.003/Web/EOT/LINESeedSansTH_W_Bd.eot") format("embedded-opentype");
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,5 +38,15 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Line Seed Sans TH", sans-serif; 
+}
+
+.main-wrap {
+  background-color: #190200;
+}
+
+.bg-y20-gradient {
+  background: linear-gradient(90deg,#f81a64 0,#f52222 50%,#ff691d 86%,#ffb623);
+  color: white;
+  font-weight: 600;
 }
