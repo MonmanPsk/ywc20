@@ -5,11 +5,27 @@
   --foreground: #171717;
 }
 
+@font-face {
+  font-family: "Line Seed Sans TH";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/fonts/LINE_Seed_Sans_TH/LINE_Seed_Sans_TH_V1.003/Web/WOFF2/LINESeedSansTH_W_Rg.woff2") format("woff2"),
+    url("/fonts/LINE_Seed_Sans_TH/LINE_Seed_Sans_TH_V1.003/Web/WOFF/LINESeedSansTH_W_Rg.woff") format("woff"),
+    url("/fonts/LINE_Seed_Sans_TH/LINE_Seed_Sans_TH_V1.003/Web/EOT/LINESeedSansTH_W_Rg.eot") format("embedded-opentype");
+}
+
+@font-face {
+  font-family: "Line Seed Sans TH";
+  font-style: normal;
+  font-weight: 700;
+  src: url("/fonts/LINE_Seed_Sans_TH/LINE_Seed_Sans_TH_V1.003/Web/WOFF2/LINESeedSansTH_W_Bd.woff2") format("woff2"),
+    url("/fonts/LINE_Seed_Sans_TH/LINE_Seed_Sans_TH_V1.003/Web/WOFF/LINESeedSansTH_W_Bd.woff") format("woff"),
+    url("/fonts/LINE_Seed_Sans_TH/LINE_Seed_Sans_TH_V1.003/Web/EOT/LINESeedSansTH_W_Bd.eot") format("embedded-opentype");
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,5 +38,126 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Line Seed Sans TH", sans-serif;
+}
+
+.main-wrap {
+  background-color: #190200;
+}
+
+.bg-dark-grey {
+  background-color: #0F0F0F;
+}
+
+.bg-y20-gradient {
+  background: linear-gradient(90deg, #f81a64 0, #f52222 50%, #ff691d 86%, #ffb623);
+  color: white;
+}
+
+.bg-customGradient {
+  background-image: linear-gradient(270deg, #f81a64, #f52222 50%, #ff691d 86%, #ffb623);
+}
+
+.text-gradient {
+  color: transparent;
+  background-clip: text;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease-out;
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.2s ease-out;
+}
+
+.css-dbswkg {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-pack: end;
+  justify-content: end;
+  background: linear-gradient(rgb(0, 0, 0) 0%, rgb(0, 0, 0) 50%, rgb(25, 2, 0) 100%) 0% 0% / contain;
+}
+
+.css-b0rywt {
+  max-width: 960px;
+  width: 100%;
+  height: 60%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(104.25deg, rgba(255, 255, 255, 0.08) -12.9%, rgba(255, 255, 255, 0.008) 121.7%);
+  backdrop-filter: blur(10px);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 15px 35px;
+  color: rgb(255, 255, 255);
+  border-radius: 10px;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+.css-b0rywt::before {
+  box-sizing: border-box;
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: -1;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+  border-image: initial;
+  border-radius: inherit;
+  background: linear-gradient(300deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 25%) border-box border-box, linear-gradient(140deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 40%) border-box border-box;
+  mask: linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px) content-box exclude, linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 0px);
+}
+
+.ant-btn {
+  border: 1px solid #424242;
+  background: #141414;
+  color: rgba(255,255,255,0.85);
+  box-shadow: 0 2px 0 rgba(255,255,255,0.04);
+  font-size: 14px;
+  height: 32px;
+  padding: 0px 15px;
+  border-radius: 6px;
+}
+
+.ant-btn:hover {
+  border: 1px solid #E87D40;
+  color: #E87D40;
 }
