@@ -1,13 +1,14 @@
 "use client"
 
+import { Candidate, ApiResponse } from '@/domain/entities/Candidate';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState, useMemo } from 'react';
 
-export default function InspectPage({ params }) {
-  const [candidate, setCandidate] = useState(null);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
+export default function InspectPage({ params }: { params: { id: string } }) {
+  const [candidate, setCandidate] = useState<Candidate | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const { id } = params;
 
@@ -29,9 +30,9 @@ export default function InspectPage({ params }) {
           throw new Error(`API error: ${response.status}`);
         }
 
-        const data = await response.json();
+        const data: ApiResponse = await response.json();
 
-        const allCandidates = [
+        const allCandidates: Candidate[] = [
           { group: data.design, majorName: 'Web Design' },
           { group: data.content, majorName: 'Web Content' },
           { group: data.programming, majorName: 'Web Programming' },
