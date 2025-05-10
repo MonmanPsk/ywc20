@@ -17,6 +17,9 @@ export default function Announcement() {
   const [animateView, setAnimateView] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const contentRef = useRef<HTMLDivElement | null>(null);
+  const [searchHistory, setSearchHistory] = useState<string[]>([]);
+  const [showHistory, setShowHistory] = useState<boolean>(false);
+  const searchHistoryRef = useRef<HTMLDivElement | null>(null);
 
   // Fetch candidate data
   useEffect(() => {
@@ -69,6 +72,21 @@ export default function Announcement() {
     };
   }, []);
 
+  // Load search history from localStorage
+  useEffect(() => {
+    const storedHistory = localStorage.getItem('ywc20_search_history');
+    if (storedHistory) {
+      try {
+        const parsedHistory = JSON.parse(storedHistory);
+        if (Array.isArray(parsedHistory)) {
+          setSearchHistory(parsedHistory);
+        }
+      } catch (e) {
+        console.error('Error parsing search history:', e);
+      }
+    }
+  }, []);
+
   // Handle dropdown height
   useEffect(() => {
     if (!contentRef.current) return;
@@ -80,11 +98,15 @@ export default function Announcement() {
     }
   }, [isDropdownOpen]);
 
-  // Handle dropdown close on outside click
+  // Handle dropdown and search history close on outside click
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsDropdownOpen(false);
+      }
+
+      if (searchHistoryRef.current && !searchHistoryRef.current.contains(event.target as Node)) {
+        setShowHistory(false);
       }
     };
 
@@ -94,7 +116,7 @@ export default function Announcement() {
     };
   }, []);
 
-  // Reset animation
+  // Reset animation of candidates list
   const resetAnimation = useCallback(() => {
     setAnimateView(false);
     const timer = setTimeout(() => {
@@ -139,6 +161,46 @@ export default function Announcement() {
 
   const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
+    if (e.target.value === '') {
+      setShowHistory(true);
+    }
+  }, []);
+
+  const handleSearchKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      if (searchQuery.trim() === '') return;
+
+      setSearchHistory(prevHistory => {
+        const newQuery = searchQuery.trim();
+        const filteredHistory = prevHistory.filter(item => item !== newQuery);
+        const newHistory = [newQuery, ...filteredHistory].slice(0, 5);
+
+        localStorage.setItem('ywc20_search_history', JSON.stringify(newHistory));
+
+        return newHistory;
+      });
+
+      setShowHistory(false);
+    }
+  }, [searchQuery]);
+
+  const handleHistoryItemClick = useCallback((historyItem: string) => {
+    setSearchQuery(historyItem);
+    setShowHistory(false);
+
+    setSearchHistory(prevHistory => {
+      const filteredHistory = prevHistory.filter(item => item !== historyItem);
+      const newHistory = [historyItem, ...filteredHistory];
+
+      localStorage.setItem('ywc20_search_history', JSON.stringify(newHistory));
+
+      return newHistory;
+    });
+  }, []);
+
+  const clearSearchHistory = useCallback(() => {
+    setSearchHistory([]);
+    localStorage.removeItem('ywc20_search_history');
   }, []);
 
   const handleMajorChange = useCallback((major: string) => {
@@ -201,13 +263,46 @@ export default function Announcement() {
 
           {/* Search bar and view toggle */}
           <div className="flex items-center gap-4 mb-5">
-            <input
-              type="text"
-              placeholder="ค้นหา"
-              value={searchQuery}
-              onChange={handleSearchChange}
-              className="w-full rounded-lg main-wrap border border-gray-600 px-4 py-3 text-white duration-200 focus:outline-none focus:ring-1"
-            />
+            <div className="relative w-full">
+              <input
+                type="text"
+                placeholder="ค้นหา"
+                value={searchQuery}
+                onChange={handleSearchChange}
+                onKeyDown={handleSearchKeyDown}
+                onFocus={() => searchHistory.length > 0 && setShowHistory(true)}
+                className="w-full rounded-lg main-wrap border border-gray-600 px-4 py-3 text-white duration-200 focus:outline-none focus:ring-1"
+              />
+
+              {/* Search History */}
+              {showHistory && searchHistory.length > 0 && (
+                <div
+                  ref={searchHistoryRef}
+                  className="absolute top-full left-0 mt-2 w-full bg-black/85 backdrop-blur-sm border border-gray-600 rounded-lg shadow-lg shadow-black z-10 overflow-hidden"
+                >
+                  <div className="flex justify-between items-center p-3 border-b border-gray-700">
+                    <span className="font-semibold">ประวัติการค้นหา</span>
+                    <button
+                      onClick={clearSearchHistory}
+                      className="cursor-pointer text-xs text-gray-400 hover:text-white duration-200"
+                    >
+                      ล้างประวัติ
+                    </button>
+                  </div>
+                  <ul className="py-2 max-h-60 overflow-y-auto">
+                    {searchHistory.map((item, index) => (
+                      <li
+                        key={index}
+                        className="px-4 py-2 cursor-pointer rounded-sm mx-1 hover:bg-gray-700/50 duration-100"
+                        onClick={() => handleHistoryItemClick(item)}
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
             <div className="ml-auto">
               <button
                 onClick={toggleViewMode}
@@ -296,7 +391,7 @@ export default function Announcement() {
                   <th className="py-4 px-4 w-1/5">เลขประจำตัว</th>
                   <th className="py-4 px-4 w-1/3">ชื่อ-นามสกุล</th>
                   <th className="py-4 px-4 w-1/4">สาขา</th>
-                  <th className="py-4 px-4 w-1/6"></th>
+                  <th className="py-4 px-4 w-1/5"></th>
                 </tr>
               </thead>
               <tbody>

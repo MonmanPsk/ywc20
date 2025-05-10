@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`antialiased`}
+        className={`antialiased bg-black`}
       >
         <nav className="bg-black fixed w-full z-40">
           <div className="flex items-center justify-between xl:container mx-auto transition-all px-8 py-4">
