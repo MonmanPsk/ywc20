@@ -166,23 +166,29 @@ export default function Announcement() {
     }
   }, []);
 
-  const handleSearchKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      if (searchQuery.trim() === '') return;
+  const handleSearchSubmit = useCallback(() => {
+    if (searchQuery.trim() === '') return;
 
-      setSearchHistory(prevHistory => {
-        const newQuery = searchQuery.trim();
-        const filteredHistory = prevHistory.filter(item => item !== newQuery);
-        const newHistory = [newQuery, ...filteredHistory].slice(0, 5);
+    setSearchHistory(prevHistory => {
+      const newQuery = searchQuery.trim();
+      const filteredHistory = prevHistory.filter(item => item !== newQuery);
+      const newHistory = [newQuery, ...filteredHistory].slice(0, 5);
 
-        localStorage.setItem('ywc20_search_history', JSON.stringify(newHistory));
+      localStorage.setItem('ywc20_search_history', JSON.stringify(newHistory));
 
-        return newHistory;
-      });
+      return newHistory;
+    });
 
-      setShowHistory(false);
-    }
+    setShowHistory(false);
   }, [searchQuery]);
+
+  const handleSearchKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key !== 'Enter') return;
+
+    e.preventDefault();
+    e.currentTarget.blur();
+    handleSearchSubmit();
+  }, [handleSearchSubmit]);
 
   const handleHistoryItemClick = useCallback((historyItem: string) => {
     setSearchQuery(historyItem);
@@ -270,6 +276,7 @@ export default function Announcement() {
                 value={searchQuery}
                 onChange={handleSearchChange}
                 onKeyDown={handleSearchKeyDown}
+                onBlur={handleSearchSubmit}
                 onFocus={() => searchHistory.length > 0 && setShowHistory(true)}
                 className="w-full rounded-lg main-wrap border border-gray-600 px-4 py-3 text-white duration-200 focus:outline-none focus:ring-1"
               />
