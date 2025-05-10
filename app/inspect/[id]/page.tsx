@@ -60,7 +60,11 @@ export default function InspectPage({ params }) {
 
   const renderContent = useMemo(() => {
     if (loading) {
-      return <div className="flex flex-col items-center justify-center h-screen bg-black text-white">กำลังโหลด...</div>;
+      return (
+        <div className="flex items-center justify-center h-screen bg-black">
+          <div className="w-10 h-10 border-3 border-white rounded-full border-t-transparent animate-spin"></div>
+        </div>
+      );
     }
 
     if (error) {
