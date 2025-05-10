@@ -161,7 +161,7 @@ export default function Announcement() {
         <div className="text-2xl">{error}</div>
         <button
           onClick={() => window.location.reload()}
-          className="cursor-pointer bg-y20-gradient text-white font-semibold px-6 py-3 rounded-lg hover:opacity-90 duration-200"
+          className="cursor-pointer bg-y20-gradient text-white font-semibold px-6 py-3 rounded-lg hover:opacity-85 duration-200"
         >
           ลองใหม่
         </button>
@@ -211,7 +211,7 @@ export default function Announcement() {
             <div className="ml-auto">
               <button
                 onClick={toggleViewMode}
-                className="cursor-pointer bg-y20-gradient hover:bg-red-700 rounded-lg p-3 hover:opacity-90 duration-200"
+                className="cursor-pointer bg-y20-gradient hover:bg-red-700 rounded-lg p-3 hover:opacity-85 duration-200"
                 aria-label={viewMode === 'list' ? "Switch to grid view" : "Switch to list view"}
               >
                 {viewMode === 'list' ? <GridIcon /> : <ListIcon />}
@@ -226,7 +226,7 @@ export default function Announcement() {
               <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={toggleDropdown}
-                  className="cursor-pointer text-sm bg-y20-gradient font-semibold rounded-lg px-5 py-2 flex items-center gap-1 hover:opacity-90 duration-200"
+                  className="cursor-pointer text-sm bg-y20-gradient font-semibold rounded-lg px-5 py-2 flex items-center gap-1 hover:opacity-85 duration-200"
                   aria-expanded={isDropdownOpen}
                   aria-haspopup="true"
                 >
@@ -269,10 +269,10 @@ export default function Announcement() {
             </div>
             {selectedMajor !== 'all' && (
               <div
-                className="flex items-center cursor-pointer hover:underline"
+                className="text-sm cursor-pointer text-gray-400 hover:text-white duration-200"
                 onClick={() => handleMajorChange('all')}
               >
-                <div className="ml-2 text-gray-400">ล้างการกรอง</div>
+                ล้างการกรอง
               </div>
             )}
           </div>
@@ -318,7 +318,7 @@ export default function Announcement() {
                     </td>
                     <td className="py-4 px-4">
                       <Link href={`/inspect/${candidate.interviewRefNo}`}>
-                        <button className="cursor-pointer bg-y20-gradient text-white text-xs font-semibold px-4 py-2 rounded-lg hover:opacity-90 duration-200">
+                        <button className="cursor-pointer bg-y20-gradient text-white text-xs font-semibold px-4 py-2 rounded-lg hover:opacity-85 duration-200">
                           ตรวจสอบ
                         </button>
                       </Link>
@@ -351,7 +351,7 @@ export default function Announcement() {
                 </div>
                 <div className="mt-2">
                   <Link href={`/inspect/${candidate.interviewRefNo}`}>
-                    <button className="cursor-pointer bg-y20-gradient text-white text-xs font-semibold px-4 py-2 rounded-lg hover:opacity-90 duration-200">
+                    <button className="cursor-pointer bg-y20-gradient text-white text-xs font-semibold px-4 py-2 rounded-lg hover:opacity-85 duration-200">
                       ตรวจสอบ
                     </button>
                   </Link>
