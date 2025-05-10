@@ -5,7 +5,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState, useMemo } from 'react';
 
-export default function InspectPage({ params }: { params: { id: string } }) {
+interface InspectPageProps {
+  params: { id: string };
+}
+
+export default function InspectPage({ params }: InspectPageProps) {
   const [candidate, setCandidate] = useState<Candidate | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
