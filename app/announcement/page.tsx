@@ -3,19 +3,20 @@
 import Link from 'next/link';
 import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { ListIcon, GridIcon, DropdownIcon } from '@/components/icons';
+import { Candidate, ApiResponse } from '@/domain/entities/Candidate';
 
 export default function Announcement() {
-  const [candidates, setCandidates] = useState([]);
+  const [candidates, setCandidates] = useState<Candidate[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedMajor, setSelectedMajor] = useState('all');
   const [viewMode, setViewMode] = useState('list');
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [dropdownHeight, setDropdownHeight] = useState(0);
-  const [animateView, setAnimateView] = useState(false);
-  const dropdownRef = useRef(null);
-  const contentRef = useRef(null);
+  const [error, setError] = useState<string | null>(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+  const [dropdownHeight, setDropdownHeight] = useState<number>(0);
+  const [animateView, setAnimateView] = useState<boolean>(false);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const contentRef = useRef<HTMLDivElement | null>(null);
 
   // Fetch candidate data
   useEffect(() => {
@@ -33,11 +34,11 @@ export default function Announcement() {
           throw new Error(`Network error: ${response.status}`);
         }
 
-        const data = await response.json();
+        const data: ApiResponse = await response.json();
 
         if (!isMounted) return;
 
-        const allCandidates = [
+        const allCandidates: Candidate[] = [
           ...data.design.map(c => ({ ...c, majorGroup: 'design' })),
           ...data.content.map(c => ({ ...c, majorGroup: 'content' })),
           ...data.programming.map(c => ({ ...c, majorGroup: 'programming' })),
@@ -81,8 +82,8 @@ export default function Announcement() {
 
   // Handle dropdown close on outside click
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsDropdownOpen(false);
       }
     };
@@ -136,11 +137,11 @@ export default function Announcement() {
     return filtered;
   }, [searchQuery, selectedMajor, candidates]);
 
-  const handleSearchChange = useCallback((e) => {
+  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   }, []);
 
-  const handleMajorChange = useCallback((major) => {
+  const handleMajorChange = useCallback((major: string) => {
     setSelectedMajor(major);
     setIsDropdownOpen(false);
   }, []);
@@ -168,7 +169,7 @@ export default function Announcement() {
     );
   }
 
-  const renderMajorName = (major) => {
+  const renderMajorName = (major: string) => {
     switch (major) {
       case 'web_design': return 'Design';
       case 'web_content': return 'Content';
@@ -178,7 +179,7 @@ export default function Announcement() {
     }
   };
 
-  const renderSelectedMajorName = () => {
+  const renderSelectedMajorName = (): string => {
     switch (selectedMajor) {
       case 'all': return 'ทั้งหมด';
       case 'design': return 'Web Design';
