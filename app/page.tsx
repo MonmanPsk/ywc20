@@ -14,7 +14,7 @@ export default function Home() {
       />
       <Link href="/announcement" className="mt-30 rounded-lg">
         <button
-          className="cursor-pointer bg-y20-gradient px-5 py-3 rounded-lg flex gap-2 hover:opacity-90 text-white font-semibold duration-200"
+          className="cursor-pointer bg-y20-gradient px-5 py-3 rounded-lg flex gap-2 hover:opacity-85 text-white font-semibold duration-200"
           aria-label="ดูประกาศผลผู้ผ่านการคัดเลือก"
         >
           <span className="text-xs sm:text-sm">ประกาศผลผู้ผ่านการคัดเลือก</span>
