@@ -279,7 +279,7 @@ export default function Announcement() {
 
         {/* Candidates list */}
         {isLoading ? (
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center mt-20">
             <div className="w-10 h-10 border-3 border-white rounded-full border-t-transparent animate-spin"></div>
           </div>
         ) : filteredCandidates.length === 0 ? (
