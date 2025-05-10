@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 
 export default function Loading() {
-    const [loadingDots, setLoadingDots] = useState(3);
+    const [loadingDots, setLoadingDots] = useState(0);
     const baseText = "กำลังโหลดข้อมูล";
 
     // Loading dots animation
