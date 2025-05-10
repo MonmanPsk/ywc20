@@ -38,15 +38,59 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: "Line Seed Sans TH", sans-serif; 
+  font-family: "Line Seed Sans TH", sans-serif;
 }
 
 .main-wrap {
   background-color: #190200;
 }
 
+.bg-dark-grey {
+  background-color: #0F0F0F;
+}
+
 .bg-y20-gradient {
-  background: linear-gradient(90deg,#f81a64 0,#f52222 50%,#ff691d 86%,#ffb623);
+  background: linear-gradient(90deg, #f81a64 0, #f52222 50%, #ff691d 86%, #ffb623);
   color: white;
-  font-weight: 600;
+}
+
+.bg-customGradient {
+  background-image: linear-gradient(270deg, #f81a64, #f52222 50%, #ff691d 86%, #ffb623);
+}
+
+.text-gradient {
+  color: transparent;
+  background-clip: text;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease-out;
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.2s ease-out;
 }

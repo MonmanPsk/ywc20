@@ -2,7 +2,14 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ["ywc20.ywc.in.th"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "ywc20.ywc.in.th",
+        port: "",
+        pathname: "/**",
+      },
+    ],
   },
 };
 
