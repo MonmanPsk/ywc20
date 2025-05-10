@@ -3,18 +3,17 @@
 import { Candidate, ApiResponse } from '@/domain/entities/Candidate';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, use } from 'react';
 
-interface InspectPageProps {
-  params: { id: string };
-}
+type InspectPageProps = Promise<{ id: string }>
 
-export default function InspectPage({ params }: InspectPageProps) {
+export default function InspectPage(props: { params: InspectPageProps }) {
+  const params = use(props.params);
+  const { id } = params;
+
   const [candidate, setCandidate] = useState<Candidate | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-
-  const { id } = params;
 
   useEffect(() => {
     if (!id) {
